@@ -191,7 +191,42 @@ public class MainActivity extends AppCompatActivity {
             tvEmail.setText(email);
             tvMobile.setText(mobile);
             tvName.setText(name);
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+            //লেখা input করে update এ click করলে যেটার update এ click করছি ঐটা update হয়ে যাবে 
+            buttonUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String name = edName.getText().toString();
+                    String mobile = edMobile.getText().toString();
+                    String email = edEmail.getText().toString();
+                    //"websitelink?id=" +id+
+                    //"&n=" +name+
+                    //"&m=" +mobile+
+                    //"&e=" +email ;
+                    progressBar.setVisibility(View.VISIBLE);
+                    String url = "https://nubsoft.xyz/data.php?id="+id+"&name"+name+"&mobile"+mobile+"&email"+email ;
+                    StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            progressBar.setVisibility(View.GONE);
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("Server Response")
+                                    .setMessage("Response")
+                                    .show();
+                            loadData();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    });
+                    RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+                    requestQueue.add(request);
+                }
+            });
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
             return myview;
         }
