@@ -188,12 +188,13 @@ public class MainActivity extends AppCompatActivity {
             String email = hashMap.get("email");
 
             tvId.setText(id);
-            tvEmail.setText(email);
-            tvMobile.setText(mobile);
             tvName.setText(name);
+            tvMobile.setText(mobile);
+            tvEmail.setText(email);
+
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-            //লেখা input করে update এ click করলে যেটার update এ click করছি ঐটা update হয়ে যাবে 
+            //লেখা input করে update এ click করলে যেটার update এ click করছি ঐটা update হয়ে যাবে
             buttonUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -206,14 +207,14 @@ public class MainActivity extends AppCompatActivity {
                     //"&m=" +mobile+
                     //"&e=" +email ;
                     progressBar.setVisibility(View.VISIBLE);
-                    String url = "https://nubsoft.xyz/data.php?id="+id+"&name"+name+"&mobile"+mobile+"&email"+email ;
+                    String url = "https://nubsoft.xyz/update.php?id="+id+"&name="+name+"&mobile="+mobile+"&email="+email ;
                     StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             progressBar.setVisibility(View.GONE);
                             new AlertDialog.Builder(MainActivity.this)
                                     .setTitle("Server Response")
-                                    .setMessage("Response")
+                                    .setMessage(response)
                                     .show();
                             loadData();
                         }
