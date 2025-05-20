@@ -228,6 +228,46 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            
+            
+            
+            
+            
+
+//------------------------------------------------------------------------
+
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    progressBar.setVisibility(View.VISIBLE);
+                    String url = "https://nubsoft.xyz/delete.php?id="+id ;
+                    StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            progressBar.setVisibility(View.GONE);
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("Server Response")
+                                    .setMessage(response)
+                                    .show();
+                            loadData();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    });
+                    RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+                    requestQueue.add(request);
+                }
+            });
+
+//------------------------------------------------------------------------
+            
+            
+            
+            
+            
 
             return myview;
         }
